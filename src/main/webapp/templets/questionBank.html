@@ -1,0 +1,157 @@
+<div class="admin-content-body" ng-controller="QuestionBankController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">试题库</strong></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g" ng-if="isWhoShow">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#my-alert'}"><span class="am-icon-plus"></span> 新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-g" ng-if="isWhoShow">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">题库名称</th><th class="table-type">试题数</th><th class="table-author am-hide-sm-only">创建人</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="q in questionBanks" ng-show="q.question_bank_state">
+                        <td>{{q.question_bank_name}}</td>
+                        <td>{{q.question_num}}</td>
+                        <td class="am-hide-sm-only">{{q.real_name}}</td>
+                        <td class="am-hide-sm-only">{{q.question_bank_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-click="pageSwitch(q)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>编辑</button>
+                                    <button ng-click="deleteQuestionBank(q.question_bank_id,questionBanks,$index)" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    共 {{pagination.totalItems}}条记录
+                    <div class="am-fr">
+                        <ul class="am-pagination">
+                            <li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getPage(pagination.pageNo-1)"><a >«</a></li>
+                            <!--<li class="am-active"><a href="#">1</a></li>-->
+                            <li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getPage(p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>
+
+                            <li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getPage(pagination.pageNo+1)"><a >»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+            </form>
+        </div>
+
+    </div>
+
+    <div class="am-g" ng-if="!isWhoShow">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default am-btn-success" ng-click="pageSwitch(0)"></span> 返回题库</button>
+                    <button type="button" class="am-btn am-btn-default">{{QBName}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="am-g" ng-if="!isWhoShow">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th>题型</th>
+                        <th style="width:27%">试题内容</th>
+                        <th>难度</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="q in questions"  ng-show="q.question_state">
+                        <td>{{q.is_what!=1 ? q.is_what!=2 ?'简答题':'判断题' : '选择题' }}</td>
+                        <td>{{q.is_what!=1?q.question_title:q.question_title.title}}</td>
+                        <td>{{q.question_level!=1 ? (q.question_level!=2 ?'困难':'一般'): '简单' }}</td>
+                        <td class="am-hide-sm-only">{{q.real_name}}</td>
+                        <td class="am-hide-sm-only">{{q.question_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button  class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>编辑</button>
+                                    <button ng-click="deleteQuestion(q.question_id,$index)" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    共 {{pagination.totalItems}}条记录
+                    <div class="am-fr">
+                        <ul class="am-pagination">
+                            <li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getQuestions(question_bank_id,pagination.pageNo-1)"><a >«</a></li>
+                            <!--<li class="am-active"><a href="#">1</a></li>-->
+                            <li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getQuestions(question_bank_id,p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>
+
+                            <li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getPage(question_bank_id,pagination.pageNo+1)"><a >»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="am-modal am-modal-alert" tabindex="9999" id="my-alert">
+        <div class="am-modal-dialog">
+            <form name="questionBankForm">
+                <div class="am-modal-bd">
+                    请输入题库名
+
+                    <input ng-model="questionBankName"
+                           type="text"
+                           name="questionBankName"
+                           class="am-modal-prompt-input"
+                           ng-model-options="{ debounce: 300}"
+                           required
+                           ng-maxlength="30"
+                           title="">
+
+                </div>
+                <label ng-if="question_bank_name_exists" style="color: #ff7167">
+                    题库名重复！
+                </label>
+                <label ng-if="questionBankForm.questionBankName.$error.maxlength" style="color: #ff7167">
+                    题库名长度最多为30个字符！
+                </label>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn">取消</span>
+                    <span ng-if="!questionBankForm.questionBankName.$error.required&&isSubmit&&!questionBankForm.questionBankName.$error.maxlength"  class="am-modal-btn" ng-click="createQuestionBank()">确定</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<footer class="admin-content-footer">
+    <hr>
+</footer>

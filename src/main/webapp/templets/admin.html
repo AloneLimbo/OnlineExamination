@@ -1,0 +1,60 @@
+<header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <strong>Online Examination</strong> <small></small>
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <li class="am-dropdown dropdown" data-am-dropdown>
+                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                    <span class="am-icon-user"></span><label>{{userName}}</label><span class="am-icon-caret-down"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                    <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                    <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<div class="am-cf admin-main" ng-controller="AdminController">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="am-list admin-sidebar-list">
+
+
+                <li ng-repeat="r in sidebar_data" ng-if="r.pid=='#'" style="cursor: pointer" ng-class="{'admin-parent':r.pid=='#'&&r.is_parent==1}" >
+                    <a ng-if="r.pid=='#'&&r.is_parent==0" ui-sref="{{r.function_url}}">
+                        <span class="{{r.function_icon}}"></span>{{' '+r.function_name}}
+                    </a>
+                    <a ng-if="r.pid=='#'&&r.is_parent==1" class="am-cf am-collapsed" data-am-collapse="{target: '#{{r.function_id}}'}"><span class="{{r.function_icon}}"></span>{{' '+r.function_name}}<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul  ng-if="r.pid=='#'&&r.is_parent==1" class="am-list admin-sidebar-sub am-collapse" id="{{r.function_id}}">
+                        <li ng-repeat="f in sidebar_data" ng-if="f.pid==r.function_id"><a ui-sref="{{f.function_url}}">{{' '+f.function_name}}</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- content start -->
+    <div ng-cloak class="admin-content" ui-view>
+
+
+        <footer class="admin-content-footer">
+            <hr>
+            <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+        </footer>
+    </div>
+    <!-- content end -->
+
+</div>
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>

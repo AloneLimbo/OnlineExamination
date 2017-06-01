@@ -1,0 +1,378 @@
+<style>
+    .login,.mk-dl-bg,.mk-dl-box,.mk-dl-box,.mk-back-upr,.btn,.mk-dl-bg,.btnip
+    ,.mk-sys-tit,.mk-back-upr,.mk-tcxt,.mk-tcxt1,.mk-kgip,.mk-sfip,.mkdl-tit,.global_msg{
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 145%;
+        vertical-align: baseline;
+        background: transparent;
+    }
+
+
+
+    #login article,aside,canvas,details,figcaption,figure,
+    footer,header,menu,nav,section,summary {
+        display: block;
+    }
+
+    #login blockquote, q {
+        quotes: none;
+    }
+
+    #login a {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        color: inherit;
+        vertical-align: baseline;
+        background: transparent;
+        text-decoration: none;
+        outline: none;
+    }
+
+    .login input, select {
+        vertical-align: middle;
+    }
+
+    .login input {
+        outline: none;
+    }
+
+    .login ul, li, dl, dt, dd {
+        list-style: none;
+    }
+
+    .login {
+        line-height: 1.5;
+        font-size: 12px;
+        font-family: tahoma, arial, 'Hiragino Sans GB', 'Microsoft Yahei', \5b8b\4f53;
+        color: #333;
+        background-color: #f4f4f4;
+    }
+
+    .clearfix {
+        *zoom: 1;
+    }
+
+    .clearfix:after {
+        content: '\200B';
+        display: block;
+        height: 0;
+        clear: both;
+    }
+
+    .fl {
+        float: left;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .co {
+        width: 1200px;
+    }
+
+    .login  {
+        height: 100%;
+    }
+    .login {
+        background-color: #f1f7ff;
+    }
+
+    .login td, th {
+        vertical-align: middle;
+    }
+    .login table, th, td {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: none;
+    }
+
+
+    /* ------------- 登录> ------------- */
+    input::-moz-placeholder { color: #999;font-size: 12px;}
+    input:-moz-placeholder { color: #999;font-size: 12px;}
+    input::-webkit-input-placeholder { color:#999;font-size: 12px;}
+    input:-ms-input-placeholder { color:#999;font-size: 12px;}
+
+
+
+    .mk-dl-bg {
+        position: absolute;
+        top: 50%;
+        z-index: -1;
+        width: 100%;
+        height: 20%;
+    }
+    .mk-tcxt {
+        width: 100%;
+        height: 100%;
+    }
+    .mk-tcxt1{
+        text-align: center;
+    }
+    .mk-sys-tit {
+        line-height: 2.6;
+        font-size: 2.75rem;
+        font-size: 44px;
+
+        color: #5093e1;
+        -webkit-text-shadow: -3px 0px 1px rgba( 180, 208, 242, .5 );
+        -moz-text-shadow: -3px 0px 1px rgba( 180, 208, 242, .5 );
+        text-shadow: -3px 0px 1px rgba( 180, 208, 242, .5 );
+    }
+    .mk-dl-box {
+        width: 27.85rem;
+        width: 532px;
+        height: auto;
+        margin: 0 auto;
+        font-size: 1rem;
+        color: #666;
+        background-color: #fff;
+        padding-bottom: 11%;
+    }
+    .mkdl-tit {
+        position: relative;
+        padding-top: 3.5rem;
+        padding-top:56px;
+        margin: 0 3.15rem 1.5rem;
+        margin: 0 50px 24px;
+        border-bottom: 1px solid #e1e1e1;
+    }
+    .mkdl-tit span {
+        position: absolute;
+        bottom: -0.75rem;
+        left: 50%;
+        padding: 0 1rem;
+        margin-left: -2rem;
+        background-color: #fff;
+        /*0924*/
+        padding: 0 16px;
+        margin-left: -32px;
+
+
+
+    }
+    .mk-kgip,
+    .mk-sfip {
+        padding-top: 1.5rem;
+        line-height: 2.58rem;
+        padding-top:24px;
+        line-height: 42px;
+    }
+    .txtip {
+        width: 16rem;
+        height: 2.57rem;
+        padding: 0 0.5rem;
+        margin-left: 1.75rem;
+        color: #666;
+        border: 1px solid #e1e1e1;
+    }
+    .mk-dl-box label {
+        vertical-align: middle;
+    }
+    .btnip {
+        width: 23rem;
+        height: 2.57rem;
+        /*修改间距*/
+        margin-top:1.25rem;
+        line-height: 2.57rem;
+        border: 0 none;
+        color: #fff;
+        background-color: #5093e1;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .btnip:hover {
+        background-color: #4687d2;
+    }
+
+    .mk-dl-ws {
+        line-height: 2.4rem;
+        font-size: 1rem;
+    }
+    .mk-back-upr {
+        position: absolute;
+        right:4%;
+        top:2%;
+
+        line-height: 1.7rem;
+        font-size: 0.86rem;
+        color: #999;
+        border-bottom: 1px solid #999;
+
+
+    }
+    .global_msg{
+        margin-top: 2px;
+        color:#f1486c;
+        font-size: 15px;
+    }
+</style>
+<div class="login" ng-controller="AddUserController">
+    <div class="mk-dl-bg"></div>
+    {{signUp_data}}
+    <table class="mk-tcxt mk-tcxt1" >
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="26%"></td>
+            <td width="48%">
+                <form  name="signUp_form" ng-submit="signUp()">
+                    <div class="mk-dl-box">
+                        <div class="mk-kgip">
+                            <label for="user_name">帐号</label>
+                            <input class="txtip"
+                                   placeholder="帐号"
+                                   id="user_name"
+                                   name="user_name"
+                                   ng-model="signUp_data.user_name"
+                                   ng-model-options="{ debounce: 300}"
+                                   pattern="^\w{6,30}$"
+                                   required>
+                        </div>
+                        <div ng-if="signUp_form.user_name.$touched">
+                            <div class="global_msg"  ng-if="signUp_form.user_name.$error.pattern||signUp_form.user_name.$error.required">
+                                用户名必须为6-30个字母、数字或下划线
+                            </div>
+                            <div ng-if="signUp_user_name_exists" class="global_msg" >
+                                用户名已存在！
+                            </div>
+                        </div>
+                        <div class="mk-sfip">
+                            <label for="password">密码</label>
+                            <input class="txtip"
+                                   type="password"
+                                   name="password"
+                                   id="password"
+                                   placeholder="请输入密码"
+                                   ng-model="passwd.password"
+                                   ng-minlength="5"
+                                   ng-maxlength="255"
+                                   required
+                            >
+                        </div>
+                        <div ng-if="signUp_form.password.$touched">
+                            <div ng-if="signUp_form.password.$error.required" class="global_msg">
+                                密码为必填项
+                            </div>
+                            <div ng-if="signUp_form.password.$error.maxlength||signUp_form.password.$error.minlength" class="global_msg">
+                                密码最短为5位
+                            </div>
+                        </div>
+                        <div class="mk-sfip">
+                            <label for="password">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <input class="txtip"
+                                   type="password"
+                                   id="passwordAgain"
+                                   name="passwordAgain"
+                                   ng-model="passwd.passwordAgain"
+                                   placeholder="再次输入密码"
+                                   required
+                            >
+                            <div ng-if="signUp_form.password.$dirty">
+                                <div ng-if="passwd.password!=passwd.passwordAgain" class="global_msg">
+                                    两次密码不一致！
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mk-sfip">
+                            <label for="password">姓名</label>
+                            <input class="txtip"
+                                   type="text"
+                                   id="real_name"
+                                   name="real_name"
+                                   ng-minlength="2"
+                                   ng-maxlength="50"
+                                   placeholder="姓名"
+                                   ng-model="signUp_data.real_name"
+                                   required
+                            >
+                            <div ng-if="signUp_form.real_name.$touched">
+                                <div ng-if="signUp_form.real_name.$error.required" class="global_msg">
+                                    姓名为必填项
+                                </div>
+                                <div ng-if="signUp_form.real_name.$error.maxlength||signUp_form.real_name.$error.minlength" class="global_msg">
+                                    姓名长度应为2～15
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mk-sfip">
+                            <label for="password">邮箱</label>
+                            <input class="txtip"
+                                   type="email"
+                                   id="email"
+                                   placeholder="邮箱"
+                                   name="email"
+                                   ng-model="signUp_data.email"
+                                   required
+                            >
+                            <div ng-if="signUp_form.email.$touched">
+
+                                <div ng-if="signUp_form.email.$error.email" class="global_msg">
+                                    邮箱格式错误
+                                </div>
+                                <div ng-if="signUp_form.email.$error.required" class="global_msg">
+                                    邮箱为必填项
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk-sfip">
+                            <label for="password">部门</label>
+                            <div class="am-dropdown dropdown" style="padding-top:10px;">
+                                <div class="am-form-group am-form-icon" style="margin: 0">
+                                    <i style="left: 1.8em;" class="am-icon-search"></i>
+                                    <input ng-model-options="{ debounce: 100}" ng-model="searchBranchWord" type="text" class="txtip am-form-field am-dropdown-toggle" placeholder="部门" data-am-dropdown-toggle>
+                                </div>
+                                <ul class="am-dropdown-content">
+                                    <li ng-repeat="b in branches" ng-click="optionBranch(b)"><a href="#" >{{b.branch_name}}</a></li>
+                                    <li ng-if="questionBank.length==0" class="am-disabled"><a href="#">不好意思,要不换个姿势看世界？_？</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="btnip am-animation-shake" type="submit"
+                                ng-disabled="signUp_form.$invalid||signUp_user_name_exists"
+                        >添加用户</button>
+                    </div>
+                </form>
+            </td>
+            <td width="26%"></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+    <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+        <div class="am-modal-dialog">
+            <div class="loader">
+                <div class="loader-inner">
+                    <div class="loader-line-wrap">
+                        <div class="loader-line"></div>
+                    </div>
+                    <div class="loader-line-wrap">
+                        <div class="loader-line"></div>
+                    </div>
+                    <div class="loader-line-wrap">
+                        <div class="loader-line"></div>
+                    </div>
+                    <div class="loader-line-wrap">
+                        <div class="loader-line"></div>
+                    </div>
+                    <div class="loader-line-wrap">
+                        <div class="loader-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,32 @@
+<div  class="container-fluid am-cf" ng-controller="AddUserController">
+    <div class="row">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加考生</strong></div>
+        </div>
+
+        <hr>
+        <div class="am-g">
+            <div class="am-u-sm-6" style="padding: 0;">
+                <div ui-sref="admin.addUser.singleAddUser" ng-click="singleOrBatch(isSingle)" ng-class="{'titleTrue':isSingle , 'titleFalse':!isSingle }">
+                    手动录入
+                </div>
+            </div>
+            <div class="am-u-sm-6" style="padding: 0;">
+                <div ui-sref="admin.addUser.batchAddUser" ng-click="singleOrBatch(isBatch)" ng-class="{'titleTrue':isBatch, 'titleFalse':!isBatch }">
+                    批量录入
+                </div>
+            </div>
+
+        </div>
+
+        <div class="am-g" ui-view>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+

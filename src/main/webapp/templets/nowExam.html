@@ -1,0 +1,25 @@
+<div class="admin-content-body" ng-controller="HomeController">
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">当前考试</strong></div>
+    </div>
+    <div class="am-u-sm-12 am-u-md-4" ng-class="{'am-u-end':($index+1)%3==0}" style=" margin-left: 2%;padding:0;width: 30%;font-size: 10px;" ng-repeat="e in exams">
+        <div class="am-panel am-panel-default t-block" ng-mouseover="e.exam_state=true" ng-mouseleave="e.exam_state=false" style="margin-bottom:21px;width: 80%;height: 80%">
+            <div class="am-panel-hd ">
+                <label>{{e.exam_name}}</label>
+            </div>
+            <div class="am-panel-bd">
+                <p>考试时长：{{e.exam_time}}分钟</p>
+                <p>开始时间：{{e.exam_start_date | date:'yyyy年MM月dd日 HH:mm:ss'}}</p>
+                <p>结束时间：{{e.exam_end_date | date:'yyyy年MM月dd日 HH:mm:ss'}}</p>
+
+            </div>
+            <div class="mask" ng-show="e.exam_state"></div>
+            <div ng-if="date < e.exam_start_date">
+                <button type="button"  class="btn btn-wait " ng-if="e.exam_state" >未开始</button>
+            </div>
+            <div ng-if="date >= e.exam_start_date">
+                <button type="button" ng-click="startExam(e)" class="btn btn-default " ng-if="e.exam_state" >开始考试</button>
+            </div>
+        </div>
+    </div>
+</div>

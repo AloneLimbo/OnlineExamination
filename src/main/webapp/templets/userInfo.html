@@ -1,0 +1,51 @@
+<div class="admin-content-body" ng-controller="UserInfoController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户信息</strong></div>
+    </div>
+    <hr>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">帐号</th><th class="table-type">真实姓名</th><th class="table-author am-hide-sm-only">部门</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="u in users" ng-show="u.user_state">
+                        <td>{{u.user_name}}</td>
+                        <td>{{u.real_name}}</td>
+                        <td class="am-hide-sm-only">{{u.branch_name}}</td>
+                        <td class="am-hide-sm-only">{{u.user_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-click="deleteUserById(u.user_id,u.branch_id,users,$index)" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    共 {{pagination.totalItems}}条记录
+                    <div class="am-fr">
+                        <ul class="am-pagination">
+                            <li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getPage(pagination.pageNo-1)"><a >«</a></li>
+                            <!--<li class="am-active"><a href="#">1</a></li>-->
+                            <li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getPage(p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>
+
+                            <li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getPage(pagination.pageNo+1)"><a >»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2017 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>

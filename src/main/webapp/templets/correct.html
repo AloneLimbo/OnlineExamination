@@ -1,0 +1,152 @@
+<div class="admin-content-body" ng-controller="CorrectController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">成绩查阅批改</strong></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g" ng-if="isWhoShow!=1">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button ng-click="back()" type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#my-alert'}"><span class="am-icon-plus"></span> 返回上一级</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-g" ng-if="isWhoShow==1">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">考试名称</th><th class="table-author am-hide-sm-only">创建人</th><th class="table-date am-hide-sm-only">开始时间</th><th class="table-date am-hide-sm-only">结束时间</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="e in examInfo" ng-show="e.exam_state">
+                        <td>{{e.exam_name}}</td>
+                        <td>阮小二</td>
+                        <td class="am-hide-sm-only">{{e.exam_start_date | date:'yyyy-MM-dd'}}</td>
+                        <td class="am-hide-sm-only">{{e.exam_end_date | date:'yyyy-MM-dd'}}</td>
+                        <td class="am-hide-sm-only">{{e.exam_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-click="open(1,e.exam_id)"  class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>查看</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="am-g" ng-if="isWhoShow==2">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">部门</th><th class="table-author am-hide-sm-only">未批改</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="b in branchCorrect" >
+                        <td>{{b.branch_name}}</td>
+                        <td>{{b.notCorrectedNum}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-click="open(2,b.branch_id)"  class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>查看</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div class="am-g" ng-if="isWhoShow==3">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">用户名</th><th class="table-author am-hide-sm-only">状态</th><th class="table-author am-hide-sm-only">成绩</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="u in userCorrect" >
+                        <td>{{u.real_name}}</td>
+                        <td>{{u.state==0?'缺考':u.state==2?'未批改':'已批改'}}</td>
+                        <td>{{u.score}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-if="u.state!=1"  ng-click="open(3,u.user_id)"  class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>批改</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div class="am-g" ng-if="isWhoShow==4" style="
+    margin-left: 11%;
+">
+        {{questions}}
+
+        <div class="am-u-sm-10" style="margin-bottom:0;padding:0">
+            <div class="am-panel am-panel-default" style="margin-bottom:0">
+                <!--panel head-->
+                <div class="am-panel-hd" style="text-align:center;font-size: 20px">
+                    <br>
+                </div>
+                <!--panel body-->
+                <div class="am-panel-bd" style="padding:0">
+
+                    <div class="am-panel am-panel-default" style="margin-bottom:0" ng-repeat="q in questions.subjectiveQuestions" >
+                        <div class="am-panel-bd" style="margin: 10px;border:1px dashed #0e90d2;">
+                            <div class="am-g">
+                                <div class="am-u-sm-10">
+                                    <p>{{q.question_title}}</p>
+                                </div>
+                                <div class="am-u-sm-2">
+                                    <input ng-model="questions.subjectiveQuestions[$index].correctScore" name="test_peer_score" style="width:25px;line-height: 15px" sort="0.911103325047533" type="text">/{{q.score}}分
+
+                                </div>
+
+                                <div class="am-u-sm-12">
+                                    <br><p>考生答案:{{q.examinee_answer}}</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--panel footer-->
+                <footer class="am-panel-footer" style="text-align:center; width:100%;height:100%;margin:0px; ">
+                    <button ng-click="submit()" type="button" class="am-btn am-btn-primary">提交</button>
+                </footer>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<footer class="admin-content-footer">
+    <hr>
+</footer>

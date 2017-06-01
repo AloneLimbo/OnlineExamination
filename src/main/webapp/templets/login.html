@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="/assets/css/mokao.css">
+<div class="login">
+<div class="mk-dl-bg"></div>
+<table class="mk-tcxt mk-tcxt1" ng-controller="LoginController">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+        <td width="26%"></td>
+        <td style="padding-top: 10%;" width="48%" ng-show="isShow">
+            <form  name="login_form" ng-submit="login()">
+                <div class="mk-dl-box">
+                    <div class="mkdl-tit"><span>登录</span></div>
+                    <div class="mk-kgip">
+                        <label for="user_name">帐号</label>
+                        <input class="txtip"
+                               name="user_name"
+                               id="user_name"
+                               type="text"
+                               placeholder="请输入账号"
+                               ng-model="login_data.user_name"
+                               pattern="^\w{6,30}$"
+                               required>
+                    </div>
+                    <div ng-if="login_form.user_name.$touched">
+                        <div ng-if="login_form.user_name.$error.pattern"
+                             id="user_name_msg" class="global_msg">帐号错误</div>
+                        <div class="global_msg" ng-if="login_form.user_name.$error.required">
+                            请填写帐号
+                        </div>
+                    </div>
+                    <div class="mk-sfip">
+                        <label for="password">密码</label>
+
+                        <input class="txtip" name="password"
+                               id="password"
+                               type="password"
+                               placeholder="请输入密码"
+                               ng-model="login_data.password"
+                               ng-minlength="5"
+                               ng-maxlength="255"
+                               required
+                        >
+                    </div>
+                    <div ng-if="login_form.password.$touched">
+                        <div class="global_msg" ng-if="login_form.password.$error.required" >
+                            请填写密码
+                        </div>
+                        <div  class="global_msg" ng-if="login_form.password.$error.maxlength||login_form.password.$error.minlength" >
+                            密码错误
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" value="240" />
+                    <button class="btnip am-animation-shake" type="submit"
+                           ng-disabled="login_form.user_name.$error.required||
+                                          login_form.password.$error.required||login_form.password.$error.maxlength||login_form.password.$error.minlength
+                                           ||login_form.user_name.$error.pattern
+                                " >登录</button>
+                    <br><a ng-click="pageSwitch()"><label>注册新用户</label></a>
+                </div>
+            </form>
+        </td>
+        <td style="padding-top: 10%;" width="48%" ng-if="!isShow">
+            <form  name="signUp_form" ng-submit="signUp()">
+                <div class="mk-dl-box">
+                    <div class="mkdl-tit"><span>注册</span></div>
+                    <div class="mk-kgip">
+                        <label for="user_name">帐号</label>
+                        <input class="txtip"
+                               placeholder="帐号"
+                               name="user_name"
+                               ng-model="signUp_data.user_name"
+                               ng-model-options="{ debounce: 300}"
+                               pattern="^\w{6,30}$"
+                               required>
+                    </div>
+                    <div ng-if="signUp_form.user_name.$touched">
+                        <div class="global_msg"  ng-if="signUp_form.user_name.$error.pattern||signUp_form.user_name.$error.required">
+                            用户名必须为6-30个字母、数字或下划线
+                        </div>
+                        <div ng-if="signUp_user_name_exists" class="global_msg" >
+                            用户名已存在！
+                        </div>
+                    </div>
+                    <div class="mk-sfip">
+                        <label for="password">密码</label>
+                        <input class="txtip"
+                               type="password"
+                               name="password"
+                               placeholder="请输入密码"
+                               ng-model="passwd.password"
+                               ng-minlength="5"
+                               ng-maxlength="255"
+                               required
+                        >
+                    </div>
+                    <div ng-if="signUp_form.password.$touched">
+                        <div ng-if="signUp_form.password.$error.required" class="global_msg">
+                            密码为必填项
+                        </div>
+                        <div ng-if="signUp_form.password.$error.maxlength||signUp_form.password.$error.minlength" class="global_msg">
+                            密码最短为5位
+                        </div>
+                    </div>
+                    <div class="mk-sfip">
+                        <label for="password">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input class="txtip"
+                               type="password"
+                               id="passwordAgain"
+                               name="passwordAgain"
+                               ng-model="passwd.passwordAgain"
+                               placeholder="再次输入密码"
+                               required
+                        >
+                        <div ng-if="signUp_form.password.$dirty">
+                            <div ng-if="passwd.password!=passwd.passwordAgain" class="global_msg">
+                                两次密码不一致！
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mk-sfip">
+                        <label for="password">姓名</label>
+                        <input class="txtip"
+                               type="text"
+                               id="real_name"
+                               name="real_name"
+                               ng-minlength="2"
+                               ng-maxlength="15"
+                               placeholder="姓名"
+                               ng-model="signUp_data.real_name"
+                               required
+                        >
+                        <div ng-if="signUp_form.real_name.$touched">
+                            <div ng-if="signUp_form.real_name.$error.required" class="global_msg">
+                                姓名为必填项
+                            </div>
+                            <div ng-if="signUp_form.real_name.$error.maxlength||signUp_form.real_name.$error.minlength" class="global_msg">
+                                姓名长度应为2～15
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mk-sfip">
+                        <label for="password">邮箱</label>
+                        <input class="txtip"
+                               type="email"
+                               id="email"
+                               placeholder="邮箱"
+                               name="email"
+                               ng-model="signUp_data.email"
+                               required
+                        >
+                        <div ng-if="signUp_form.email.$touched">
+
+                            <div ng-if="signUp_form.email.$error.email" class="global_msg">
+                                邮箱格式错误
+                            </div>
+                            <div ng-if="signUp_form.email.$error.required" class="global_msg">
+                                邮箱为必填项
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btnip am-animation-shake" type="submit"
+                            ng-disabled="signUp_form.$invalid||signUp_user_name_exists"
+                            >注册</button>
+                    <br><a ng-click="pageSwitch()"><label>返回登录</label></a>
+                </div>
+            </form>
+        </td>
+        <td width="26%"></td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+    <div class="am-modal-dialog">
+        <div class="loader">
+            <div class="loader-inner">
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>

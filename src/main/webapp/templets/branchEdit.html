@@ -1,0 +1,120 @@
+<div class="admin-content-body" ng-controller="BranchController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">部门表</strong></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g" >
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#createBranch'}"><span class="am-icon-plus"></span> 新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-g" >
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">部门名称</th><th class="table-author am-hide-sm-only">创建人</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="b in branches" ng-show="b.branch_state">
+                        <td>{{b.branch_name}}</td>
+                        <td>{{b.real_name}}</td>
+                        <td class="am-hide-sm-only">{{b.branch_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button data-am-modal="{target: '#updateBranch'}" ng-click="optionBranch(b.branch_id,$index)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>编辑</button>
+                                    <button ng-click="deleteBranch(b.branch_id,branches,$index)" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    共 {{pagination.totalItems}}条记录
+                    <div class="am-fr">
+                        <ul class="am-pagination">
+                            <li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getPage(pagination.pageNo-1)"><a >«</a></li>
+                            <!--<li class="am-active"><a href="#">1</a></li>-->
+                            <li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getPage(p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>
+
+                            <li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getPage(pagination.pageNo+1)"><a >»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="am-modal am-modal-alert" tabindex="9999" id="createBranch">
+        <div class="am-modal-dialog">
+            <form name="branchForm">
+                <div class="am-modal-bd">
+                    请输入部门名
+
+                    <input ng-model="branchName"
+                           type="text"
+                           name="branchName"
+                           class="am-modal-prompt-input"
+                           ng-model-options="{ debounce: 300}"
+                           required
+                           title="">
+
+                </div>
+                <label ng-if="branch_name_exists" style="color: #ff7167">
+                    部门名重复！
+                </label>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn">取消</span>
+                    <span ng-if="!branchForm.branchName.$error.required&&isSubmit"  class="am-modal-btn" ng-click="createBranch()">确定</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="am-modal am-modal-alert" tabindex="8888" id="updateBranch">
+        <div class="am-modal-dialog">
+            <form name="branchForm">
+                <div class="am-modal-bd">
+                    请输入部门名
+
+                    <input ng-model="branchName"
+                           type="text"
+                           name="branchName"
+                           class="am-modal-prompt-input"
+                           ng-model-options="{ debounce: 300}"
+                           required
+                           title="">
+
+                </div>
+                <label ng-if="branch_name_exists" style="color: #ff7167">
+                    部门名重复！
+                </label>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn">取消</span>
+                    <span ng-if="!branchForm.branchName.$error.required&&isSubmit"  class="am-modal-btn" ng-click="updateBranch()">修改</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>

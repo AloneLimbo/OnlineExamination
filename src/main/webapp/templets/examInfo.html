@@ -1,0 +1,53 @@
+<div class="admin-content-body" ng-controller="ExamInfoController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">考试信息</strong></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g" >
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#my-alert'}"><span class="am-icon-plus"></span> 新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-g" >
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">考试名称</th><th class="table-author am-hide-sm-only">创建人</th><th class="table-date am-hide-sm-only">开始时间</th><th class="table-date am-hide-sm-only">结束时间</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="e in examInfo" ng-show="e.exam_state">
+                        <td>{{e.exam_name}}</td>
+                        <td>test</td>
+                        <td class="am-hide-sm-only">{{e.exam_start_date | date:'yyyy-MM-dd'}}</td>
+                        <td class="am-hide-sm-only">{{e.exam_end_date | date:'yyyy-MM-dd'}}</td>
+                        <td class="am-hide-sm-only">{{e.exam_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-click="pageSwitch(q)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>编辑</button>
+                                    <button ng-click="deleteQuestionBank(q.question_bank_id,questionBanks,$index)" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+<footer class="admin-content-footer">
+    <hr>
+</footer>

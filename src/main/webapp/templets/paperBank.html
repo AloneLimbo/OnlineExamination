@@ -1,0 +1,237 @@
+<div class="admin-content-body" ng-controller="PaperController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" ng-if="isWhoShow">试卷库</strong></div>
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" ng-click="change()" ng-if="!isWhoShow">返回试卷库</strong></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g" ng-if="isWhoShow">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default am-btn-success" ng-click="change()"><span class="am-icon-plus"></span> 新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="am-g" ng-if="isWhoShow">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">试卷名称</th><th class="table-type">总分</th><th class="table-author am-hide-sm-only">创建人</th><th class="table-date am-hide-sm-only">创建日期</th><th class="table-set">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="p in papers" >
+                        <td>{{p.paper_name}}</td>
+                        <td>{{p.paper_score}}</td>
+                        <td class="am-hide-sm-only">{{p.real_name}}</td>
+                        <td class="am-hide-sm-only">{{p.paper_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button ng-click="pageSwitch(q)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>编辑</button>
+                                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    共 {{pagination.totalItems}}条记录
+                    <div class="am-fr">
+                        <ul class="am-pagination">
+                            <li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getPage(pagination.pageNo-1)"><a >«</a></li>
+                            <!--<li class="am-active"><a href="#">1</a></li>-->
+                            <li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getPage(p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>
+
+                            <li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getPage(pagination.pageNo+1)"><a >»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <!--appPaper start-->
+        <div class="am-g" ng-if="!isWhoShow">
+            <div class="am-u-sm-2" >
+
+                <div class="am-panel am-panel-default" style="margin-bottom:0" ng-repeat="p in paper" >
+                    <div class="am-g">
+
+                        <div class="am-u-sm-8">
+                            <div class="am-panel-bd" >{{p.question_name}}</div>
+                        </div>
+                        <div class="am-u-sm-4" style="padding-bottom:12.5px;padding-top:12.5px;">
+                            <a ng-click="deleteQuestionParent($index)"><span class="am-icon-trash-o"></span></a>
+                        </div>
+                    </div>
+
+                    <div class="am-panel-bd" style="padding-bottom:0;padding-top:0">共{{p.questions.length}}题；</div>
+                    <div class="am-panel-bd" style="padding-top:0;">每题<input ng-model="p.question_score" name="test_peer_score" style="width:25px;line-height: 15px" sort="0.911103325047533" type="text">分</div>
+                </div>
+
+                <div  class="am-panel am-panel-default" style="background: #f6faff">
+                    <div class="am-panel-bd" style="padding-bottom:0">总题数:{{questionNum}}</div>
+                    <div class="am-panel-bd" style="padding-top:0;">当前总分:{{score}}</div>
+                </div>
+
+            </div>
+
+
+            <div class="am-u-sm-10" style="margin-bottom:0;padding:0">
+                <div class="am-panel am-panel-default" style="margin-bottom:0">
+                    <!--panel head-->
+                    <div class="am-panel-hd" style="text-align:center;font-size: 20px">
+                        <input style="width: 100%;text-align: center;border: 0;background-color: #f5f5f5;" ng-model="paperName.name" type="text" class="" id="doc-ipt-email-1" placeholder="输入试卷题目">
+                    </div>
+                    <!--panel body-->
+                    <div class="am-panel-bd" style="padding:0">
+
+                        <div class="am-panel am-panel-default" style="margin-bottom:0" ng-repeat="p in paper" ng-if="p.question_status!=0">
+                            <div class="am-panel-hd" style="background-color: #fafafa">
+                                <div class="am-g">
+                                    <div class="am-u-sm-2"><p>{{p.question_name}}</p></div>
+                                    <div class="am-u-sm-10">每题<input ng-model="p.question_score" name="test_peer_score" style="width:25px;line-height: 15px" sort="0.911103325047533" type="text">分</div>
+                                    <div class="am-u-sm-12"><button ng-click="OptionQuestion(p)" type="button" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 800, height: 500}" class="am-btn am-btn-default am-radius" style="margin:13px">添加试题</button></div>
+                                </div>
+                            </div>
+
+                            <div class="am-panel-bd" style="margin: 10px;border:1px dashed #0e90d2;" ng-repeat="t in p.questions">
+                                <div class="am-g">
+                                    <div class="am-u-sm-10">
+                                        <p>{{t.is_what==1?t.question_title.title:t.question_title}}</p>
+                                    </div>
+                                    <div class="am-u-sm-2">
+                                        {{p.question_score}}分
+                                        <a ng-click="deleteQuestion($index,p.questions)"><span class="am-icon-trash-o"></span></a>
+                                    </div>
+                                    <div class="am-u-sm-12" >
+                                            <p ng-repeat="o in t.question_title.option" style="margin: 0">{{$index|numToLetter}}{{o}}</p>
+                                    </div>
+                                        <div class="am-u-sm-12">
+                                            <br><p>正确答案:{{t|answerPrint}}</p>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="am-dropdown dropdown" style="padding:10px 15px">
+                            <button  class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>添加大题&nbsp;&nbsp;<span class="am-icon-caret-down"></span></button>
+                            <ul class="am-dropdown-content">
+                                <li><a href="#" ng-click="addQuestionParent(1)">单选题</a></li>
+                                <li><a href="#" ng-click="addQuestionParent(2)">判断题</a></li>
+                                <li><a href="#" ng-click="addQuestionParent(3)">问答题</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--panel footer-->
+                    <footer class="am-panel-footer" style="text-align:center; width:100%;height:100%;margin:0px; ">
+                        <button ng-click="addPaper()" type="button" class="am-btn am-btn-primary">提交</button>
+                    </footer>
+
+                </div>
+
+            </div>
+        </div>
+        <!--addPaper end-->
+
+
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1"  >
+        <div class="am-modal-dialog" >
+            <div class="am-modal-hd" style="background-color: #5d9cec; color:#ffffff">添加试题
+                <a href="javascript: void(0)" class="am-close am-close-alt am-close-spin am-icon-times" data-am-modal-close></a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-g">
+                    <div class="am-u-sm-4">
+                        <div class="am-dropdown dropdown" style="padding-top:10px;">
+                            <div class="am-form-group am-form-icon" style="margin: 0">
+                                <i class="am-icon-search"></i>
+                                <input ng-model-options="{ debounce: 300}" ng-model="searchWord" type="text" class="am-form-field am-dropdown-toggle" placeholder="搜索题库" data-am-dropdown-toggle>
+                            </div>
+                            <ul class="am-dropdown-content">
+                                <li ng-repeat="q in questionBank"><a href="#" ng-click="optionQuestionBank(q)">{{q.question_bank_name}}</a></li>
+                                <li ng-if="questionBank.length==0" class="am-disabled"><a href="#">不好意思,要不换个姿势看世界？_？</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="am-u-sm-12">
+                        <form class="am-form">
+                            <table class="am-table am-table-striped am-table-hover table-main">
+                                <thead>
+                                <tr>
+                                    <th width="1%"><input type="checkbox"  title=""/></th>
+                                    <th width="8%">题型</th>
+                                    <th width="26%">试题内容</th>
+                                    <th width="7%">难度</th>
+                                    <th width="8%">创建人</th>
+                                    <th width="15%">创建时间</th>
+                                    <th width="7%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="q in questions">
+                                    <td ><input type="checkbox" /></td>
+                                    <td style="text-align: left;">{{q.is_what!=1 ? q.is_what!=2 ?'简答题':'判断题' : '选择题' }}</td>
+                                    <td style="text-align: left;">{{q.is_what!=1?q.question_title:q.question_title.title}}</td>
+                                    <td style="text-align: left;">{{q.question_level!=1 ? (q.question_level!=2 ?'困难':'一般'): '简单' }}</td>
+                                    <td style="text-align: left;" class="am-hide-sm-only">{{q.real_name}}</td>
+                                    <td style="text-align: left;" class="am-hide-sm-only">{{q.question_create_date | date:'yyyy-MM-dd'}}</td>
+                                    <td style="float: left;">
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button ng-click="addQuestion(q)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span>添加</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="am-cf" ng-if="questions!=null"  style="cursor: pointer">
+                                共 {{pagination.totalItems}}条记录
+                                <div class="am-fr">
+                                    <ul class="am-pagination">
+                                        <li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getQuestions(pagination.pageNo-1)"><a >«</a></li>
+                                        <!--<li class="am-active"><a href="#">1</a></li>-->
+                                        <li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getQuestions(p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>
+
+                                        <li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getQuestions(pagination.pageNo+1)"><a >»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr />
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+<footer class="admin-content-footer">
+    <hr>
+</footer>
+

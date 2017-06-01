@@ -1,0 +1,22 @@
+<div class="am-g">
+    <div class="am-u-sm-12">
+        <img  src="../assets/i/batch-add-excel.png" style="margin-top: 10%; margin-left: 25%;" >
+    </div>
+
+    <div class="am-u-sm-6">
+        <a href="../excel/user_add_template_down.xls">
+            <button  type="button"
+                     class="am-btn am-btn-primary tpl-btn-bg-color-success "
+                     style="margin-left: 60%;height: 36px;width: 100px;">下载模板
+            </button>
+        </a>
+    </div>
+    <div class="am-u-sm-6">
+        <button ng-click="fileOpen()"
+                type='button'
+                class='am-btn am-btn-primary tpl-btn-bg-color-success'
+                style="margin-left: 15%;height: 36px;width: 100px;" >上传excel</button>
+        <input  id="btn_file" type="file" nv-file-select uploader="uploader"  style="display: none;"/>
+    </div>
+
+</div>

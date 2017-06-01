@@ -1,0 +1,47 @@
+<div class="admin-content-body" ng-controller="ReportCardController">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">成绩查询</strong></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g" >
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-title">考试名称</th>
+                        <th class="table-type">分数</th>
+                        <th class="table-set">考试时间</th>
+                        <th class="table-set">考生姓名</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="r in reportCard" >
+                        <td>{{r.exam_name}}</td>
+                        <td>{{r.score}}</td>
+                        <td class="am-hide-sm-only">{{r.report_card_create_date | date:'yyyy-MM-dd'}}</td>
+                        <td>{{r.real_name}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<div class="am-cf">-->
+                    <!--共 {{pagination.totalItems}}条记录-->
+                    <!--<div class="am-fr">-->
+                        <!--<ul class="am-pagination">-->
+                            <!--<li ng-class="{'am-disabled':pagination.pageNo==1}" ng-click="getPage(pagination.pageNo-1)"><a >«</a></li>-->
+                            <!--&lt;!&ndash;<li class="am-active"><a href="#">1</a></li>&ndash;&gt;-->
+                            <!--<li style="cursor: pointer" ng-repeat="p in pagination.page" ng-click="getPage(p)" ng-class="{'am-active':pagination.pageNo==p }"><a href="">{{p}}</a></li>-->
+
+                            <!--<li ng-class="{'am-disabled':pagination.pageNo==pagination.pageNum}" ng-click="getPage(pagination.pageNo+1)"><a >»</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <hr />
+            </form>
+        </div>
+
+    </div>
+</div>

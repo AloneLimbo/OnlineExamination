@@ -1,0 +1,103 @@
+<div class="admin-content-body" ng-controller="CreateExamController">
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">创建考试</strong></div>
+    </div>
+
+
+    <div class="am-g" >
+        <div class="am-u-sm-10" style="margin-bottom:0;padding:0">
+            <div class="am-panel am-panel-default" style="margin-bottom:0">
+                <!--panel head-->
+                <div class="am-panel-hd" style="text-align:center;font-size: 20px">
+                    <input style="width: 100%;text-align: center;border: 0;background-color: #f5f5f5;" ng-model="examName" type="text" class="" id="doc-ipt-email-1" placeholder="输入考试名称">
+                </div>
+                <!--panel body-->
+                <div class="am-panel-bd" style="padding:0">
+                    <div class="am-dropdown dropdown" style="padding:10px 15px">
+                        <button  class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>选择试卷类型&nbsp;&nbsp;<span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li><a href="#" >已有试卷</a></li>
+                            <li><a href="#" >随机组题</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="am-panel-bd" style="padding:0">
+
+                    <div class="am-panel am-panel-default" style="margin-bottom:0" >
+                        <div class="am-panel-hd" style="background-color: #fafafa">
+                            <div class="am-g">
+                                <div class="am-u-sm-12">
+                                        <div class="am-dropdown dropdown" style="padding-top:10px;">
+                                            <div class="am-form-group am-form-icon" style="margin: 0">
+                                                <i class="am-icon-search"></i>
+                                                <input ng-model-options="{ debounce: 300}" ng-model="searchPaperWord" type="text" class="am-form-field am-dropdown-toggle" placeholder="搜索试卷" data-am-dropdown-toggle>
+                                            </div>
+                                            <ul class="am-dropdown-content">
+                                                <li ng-repeat="p in papers" ng-click="optionPaper(p)"><a href="#">{{p.paper_name}}</a></li>
+                                                <li ng-if="paper.length==0" class="am-disabled"><a href="#">不好意思,要不换个姿势看世界？_？</a></li>
+                                            </ul>
+                                        </div>
+                                    <input ng-model="paperName" style="margin-left:3%" type="text" readonly="readonly">
+                                </div>
+
+                                <div class="am-u-sm-2">
+                                    <button type="button"  class="am-btn am-btn-default am-radius" style="margin:13px">开始时间</button>
+                                </div>
+                                <div class="am-u-sm-10 am-u-end">
+                                    <input style="width: 30%;" size="16" type="text" ng-model="startDate" readonly class="form-datetime-lang am-form-field datetimepicker">
+                                </div>
+                                <div class="am-u-sm-12">
+
+                                </div>
+                                <div class="am-u-sm-2 ">
+                                    <button type="button"  class="am-btn am-btn-default am-radius" style="margin:13px">结束时间</button>
+                                </div>
+                                <div class="am-u-sm-10">
+                                    <input style="width: 30%;" size="16" type="text" ng-model="endDate" readonly class="form-datetime-lang am-form-field datetimepicker">
+                                </div>
+                            </div>
+                            <div class="am-u-sm-12">
+                                <input ng-model="exam_time" type="number" placeholder="考试时长">分钟
+                            </div>
+<hr>
+                            <div class="am-g">
+                                <div class="am-u-sm-4">
+                                    <div class="am-dropdown dropdown" style="padding-top:10px;">
+                                        <div class="am-form-group am-form-icon" style="margin: 0">
+                                            <i class="am-icon-search"></i>
+                                            <input ng-model-options="{ debounce: 300}" ng-model="searchBranchWord" type="text" class="am-form-field am-dropdown-toggle" placeholder="可考部门" data-am-dropdown-toggle>
+                                        </div>
+                                        <ul class="am-dropdown-content">
+                                            <li ng-repeat="b in branchs" ng-click="optionBranch(b)"><a href="#" >{{b.branch_name}}</a></li>
+                                            <li ng-if="questionBank.length==0" class="am-disabled"><a href="#">不好意思,要不换个姿势看世界？_？</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="am-u-sm-8">
+
+                                        <div class="am-alert" data-am-alert ng-repeat="o in optionedBranch">
+                                            <button type="button" class="am-close" ng-click="deleteOptionBranch($index)">&times;</button>
+                                            <p style="text-align: center;">{{o.branch_name}}</p>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                <!--panel footer-->
+                <footer class="am-panel-footer" style="text-align:center; width:100%;height:100%;margin:0px; ">
+                    <button ng-click="addExam()" type="button" class="am-btn am-btn-primary">提交</button>
+                </footer>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+</div>
